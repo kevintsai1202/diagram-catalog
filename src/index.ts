@@ -1,6 +1,6 @@
 /**
  * 共用圖解元件目錄的進入點。
- * - `core`：36 個元件的核心 props（zod），各產品 `.extend()` 加自己的欄位；
+ * - `core`：37 個元件的核心 props（zod），各產品 `.extend()` 加自己的欄位；
  * - 項目層 schema（`KeyFigureItem` 等）：在巢狀項目加欄位用；
  * - `buildCatalog()`／`serializeCatalog()`：產生 dist/catalog.json 的內容；
  * - `selectVariant()`：依 `when` 條件挑畫布變體。

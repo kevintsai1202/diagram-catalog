@@ -78,12 +78,28 @@ export const ScatterPoint = z.object({ x: z.number(), y: z.number(), group: z.st
 export const MetaphorItem = z.object({ label: z.string(), weight: z.number().nullable() })
 /** 隱喻的一組（漏斗的輸入或輸出、天平的一盤、齒輪）。 */
 export const MetaphorGroup = z.object({ title: optionalText, items: z.array(MetaphorItem).min(1) })
+/**
+ * 多拍子場景的一個場景（1.1.0）。kind 決定版型，只填該版型用到的欄位：
+ * points＝title 標題＋points 要點；number＝value 數字＋unit 單位＋label 說明（notes 是補充行）；quote＝text 引言＋by 出處。
+ * JSON Schema 子集沒有 oneOf，所以三種版型共用一個扁平物件，各版型的必填欄位由消費端的轉換程式檢查。
+ */
+export const SceneItem = z.object({
+  kind: z.enum(['points', 'number', 'quote']),
+  title: optionalText.optional(),
+  points: z.array(z.string()).optional(),
+  value: z.number().optional(),
+  unit: optionalText.optional(),
+  label: optionalText.optional(),
+  notes: z.array(z.string()).optional(),
+  text: optionalText.optional(),
+  by: optionalText.optional(),
+})
 /** 貼文的互動數（文字，可寫 2.4K 這類縮寫）。 */
 export const SocialStats = z.object({ replies: optionalText, reposts: optionalText, likes: optionalText })
 
 // ───── 元件層 schema ─────
 
-/** 36 個元件的核心 props。 */
+/** 37 個元件的核心 props。 */
 export const core = {
   // 版面
   Report: z.object({ title: z.string(), summary: z.string().nullable() }),
@@ -130,7 +146,7 @@ export const core = {
   Timeline: z.object({ items: z.array(TimelineItem).min(2) }),
   Figure: z.object({ caption: z.string().nullable() }),
   SourceList: z.object({}),
-  // 以下 12 種只有動畫渲染器有
+  // 以下 13 種只有動畫渲染器有
   CodeCard: z.object({ title: optionalText, fileName: optionalText, code: z.string(), steps: z.array(CodeStep) }),
   CodeMotion: z.object({
     title: optionalText,
@@ -163,6 +179,7 @@ export const core = {
   }),
   Subscribe: z.object({ name: z.string(), subscribers: optionalText, button: optionalText, done: optionalText }),
   Checklist: z.object({ title: optionalText, items: z.array(ChecklistItem).min(1) }),
+  Scenes: z.object({ title: optionalText, scenes: z.array(SceneItem).min(1) }),
 }
 
 /** 元件 id。 */

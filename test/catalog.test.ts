@@ -22,9 +22,9 @@ const REPORT_IDS = [
   'KeyFigures', 'Delta', 'Gauge', 'Ranking', 'Progress', 'Chart', 'Heatmap', 'RegionMap', 'DataTable', 'Comparison',
   'Timeline', 'Figure', 'SourceList',
 ]
-/** 只有動畫渲染器有的 12 種。 */
+/** 只有動畫渲染器有的 13 種（1.1.0 起多了 Scenes）。 */
 const CANVAS_ONLY_IDS = [
-  'CodeCard', 'CodeMotion', 'Terminal', 'Tree', 'Decision', 'Flow', 'Scatter', 'Metaphor', 'Stamp', 'SocialPost', 'Subscribe', 'Checklist',
+  'CodeCard', 'CodeMotion', 'Terminal', 'Tree', 'Decision', 'Flow', 'Scatter', 'Metaphor', 'Stamp', 'SocialPost', 'Subscribe', 'Checklist', 'Scenes',
 ]
 /** 動畫渲染器的 23 個圖解範本 id。 */
 const CANVAS_TEMPLATES = [
@@ -88,9 +88,9 @@ function collectKeywords(node: unknown, out: Set<string>): void {
 }
 
 describe('元件清單', () => {
-  it('共 36 個 id：靜態報告的 24 種在前，動畫專有的 12 種在後', () => {
+  it('共 37 個 id：靜態報告的 24 種在前，動畫專有的 13 種在後', () => {
     expect(Object.keys(catalog.components)).toEqual([...REPORT_IDS, ...CANVAS_ONLY_IDS])
-    expect(COMPONENTS).toHaveLength(36)
+    expect(COMPONENTS).toHaveLength(37)
   })
 
   it('每個元件的名稱、摘要、AI 用法、關鍵字三語都有內容', () => {
@@ -107,7 +107,7 @@ describe('元件清單', () => {
     }
   })
 
-  it('靜態報告渲染器：24 種都是 full，動畫專有的 12 種是 none', () => {
+  it('靜態報告渲染器：24 種都是 full，動畫專有的 13 種是 none', () => {
     for (const id of REPORT_IDS) expect(catalog.components[id].renderers.react, id).toEqual({ status: 'full', component: id })
     for (const id of CANVAS_ONLY_IDS) expect(catalog.components[id].renderers.react, id).toEqual({ status: 'none', component: null })
   })
@@ -242,5 +242,23 @@ describe('產生檔', () => {
 
   it('序列化結果穩定（同一份原始碼重建兩次相同）', () => {
     expect(serializeCatalog()).toBe(serializeCatalog())
+  })
+})
+
+describe('1.1.0 新增與校正', () => {
+  it('Scenes：三種場景版型、對到多拍子場景範本，步數上限 8', () => {
+    const c = catalog.components.Scenes
+    expect(c.renderers.react).toEqual({ status: 'none', component: null })
+    const [v] = c.renderers.canvas.variants
+    expect(v.template).toBe('diagram-scenes')
+    expect(v.adapter).toBe('scenes')
+    expect(v.steps.max).toBe(8)
+    expect(v.limits.scenes).toEqual({ minItems: 1, maxItems: 8 })
+    const scene = (c.props.properties?.scenes as { items: { properties: Record<string, { enum?: string[] }> } }).items
+    expect(scene.properties.kind.enum).toEqual(['points', 'number', 'quote'])
+  })
+
+  it('Comparison：範本只有左、右、強調三個時間點', () => {
+    expect(catalog.components.Comparison.renderers.canvas.variants[0].steps.max).toBe(3)
   })
 })

@@ -46,6 +46,14 @@ export const VALID: Record<string, unknown> = {
   SocialPost: { style: 'micro', name: '示範帳號', handle: '@demo', community: null, postTitle: null, text: '今天學到一件事', stats: { replies: '3', reposts: null, likes: '42' }, time: '2 小時前' },
   Subscribe: { name: '示範頻道', subscribers: '1,024 位訂閱者', button: null, done: null },
   Checklist: { title: null, items: [{ label: '讀取檔案', status: 'ok' }, { label: '檢查格式', status: 'warn' }] },
+  Scenes: {
+    title: null,
+    scenes: [
+      { kind: 'points', title: '為什麼要重跑', points: ['結果不穩定', '無法追溯'] },
+      { kind: 'number', value: 3.2, unit: 'x', label: '重跑成本', notes: ['比第一次更高'] },
+      { kind: 'quote', text: '先求正確，再求快', by: '工程筆記' },
+    ],
+  },
 }
 
 /** 每個元件一份缺必要欄位或型別錯誤的範例。 */
@@ -86,4 +94,5 @@ export const INVALID: Record<string, unknown> = {
   SocialPost: { style: 'micro', name: 'x', text: 'y' },
   Subscribe: { subscribers: null },
   Checklist: { title: null, items: [] },
+  Scenes: { title: null, scenes: [{ kind: 'slide', title: 'x' }] },
 }

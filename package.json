@@ -1,6 +1,6 @@
 {
   "name": "diagram-catalog",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "兩種渲染器共用的圖解元件目錄：元件 id、結構化 props、步驟語意、設計 token、三語說明，產生 JSON 給不同的渲染器使用",
   "license": "Apache-2.0",
   "private": true,

@@ -1,5 +1,5 @@
 {
-  "catalogVersion": "1.0.0",
+  "catalogVersion": "1.1.0",
   "locales": [
     "zh-TW",
     "en",
@@ -188,7 +188,7 @@
               },
               "limits": {
                 "title": {
-                  "maxLength": 60
+                  "maxLength": 40
                 }
               },
               "props": {
@@ -354,7 +354,7 @@
               },
               "limits": {
                 "title": {
-                  "maxLength": 60
+                  "maxLength": 40
                 }
               },
               "props": {
@@ -2177,6 +2177,9 @@
                   "minItems": 1,
                   "maxItems": 3
                 },
+                "columns[]": {
+                  "maxLength": 24
+                },
                 "rows": {
                   "maxItems": 12
                 },
@@ -2308,10 +2311,10 @@
               "adapter": "compare",
               "when": null,
               "steps": {
-                "zh-TW": "第 1 步左欄出現、第 2 步右欄出現，之後每一步強調一個 highlights",
-                "en": "Step 1 shows the left column, step 2 the right column, then each step emphasises one highlight",
-                "ja": "1 ステップ目で左列、2 ステップ目で右列を表示し、以降は highlights を 1 つずつ強調",
-                "max": 6
+                "zh-TW": "第 1 步左欄出現、第 2 步右欄出現；有 highlights 時第 3 步同時強調全部",
+                "en": "Step 1 shows the left column, step 2 the right column; with highlights, step 3 emphasises all of them at once",
+                "ja": "1 ステップ目で左列、2 ステップ目で右列を表示。highlights があれば 3 ステップ目でまとめて強調",
+                "max": 3
               },
               "limits": {
                 "left.title": {
@@ -4494,6 +4497,200 @@
                     "type": "number",
                     "minimum": 0.2,
                     "maximum": 3
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Scenes": {
+      "version": 1,
+      "category": "text",
+      "name": {
+        "zh-TW": "多拍子場景",
+        "en": "Scenes",
+        "ja": "シーン切り替え"
+      },
+      "summary": {
+        "zh-TW": "依序切換的幾個場景：標題加要點、大數字、引言",
+        "en": "A few scenes shown in turn: a title with points, a big number, or a quote",
+        "ja": "順に切り替わるいくつかのシーン：見出しと要点、大きな数字、引用"
+      },
+      "aiGuide": {
+        "zh-TW": "scenes 依序放 1～8 個場景，每個場景用 kind 選版型、只填該版型的欄位：points 填 title（標題）與 points（要點，最多 5 點，每點一句）；number 填 value（原始數值，照抄）、unit（單位或後綴，例如 %、x）、label（說明），notes 最多 2 行補充；quote 填 text（照抄原文）與 by（出處）。想在一段話裡換好幾個重點畫面時，優先用這個元件。",
+        "en": "scenes holds 1–8 scenes in order. Each scene picks a layout with kind and fills only the fields of that layout: points uses title and points (up to 5, one sentence each); number uses value (the raw number, copied), unit (unit or suffix such as % or x) and label, plus up to 2 lines of notes; quote uses text (verbatim) and by (the source). Prefer this component when one stretch of narration needs several key-point screens.",
+        "ja": "scenes に 1～8 個のシーンを順に入れる。各シーンは kind でレイアウトを選び、そのレイアウトの欄だけを埋める：points は title（見出し）と points（要点、最大 5 つ、各一文）。number は value（元の数値、資料どおり）、unit（単位や接尾辞、% や x など）、label（説明）、notes は最大 2 行の補足。quote は text（原文どおり）と by（出典）。一続きの話の中で要点の画面を何枚か切り替えたいときはこの部品を優先する。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "場景",
+          "重點畫面",
+          "大數字",
+          "引言",
+          "分段"
+        ],
+        "en": [
+          "scenes",
+          "key points",
+          "big number",
+          "quote",
+          "slides"
+        ],
+        "ja": [
+          "シーン",
+          "要点",
+          "大きな数字",
+          "引用"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "scenes": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "points",
+                    "number",
+                    "quote"
+                  ]
+                },
+                "title": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "points": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "value": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "label": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "notes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "text": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "by": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "scenes"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-scenes",
+              "adapter": "scenes",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步切到第 i 個場景",
+                "en": "Step i switches to scene i",
+                "ja": "i ステップ目で i 番目のシーンに切り替え",
+                "max": 8
+              },
+              "limits": {
+                "scenes": {
+                  "minItems": 1,
+                  "maxItems": 8
+                },
+                "scenes[].title": {
+                  "maxLength": 40
+                },
+                "scenes[].points": {
+                  "maxItems": 5
+                },
+                "scenes[].points[]": {
+                  "maxLength": 60
+                },
+                "scenes[].unit": {
+                  "maxLength": 8
+                },
+                "scenes[].label": {
+                  "maxLength": 40
+                },
+                "scenes[].notes": {
+                  "maxItems": 2
+                },
+                "scenes[].notes[]": {
+                  "maxLength": 60
+                },
+                "scenes[].text": {
+                  "maxLength": 160
+                },
+                "scenes[].by": {
+                  "maxLength": 40
+                },
+                "title": {
+                  "maxLength": 40
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "transition": {
+                    "type": "string",
+                    "enum": [
+                      "fade",
+                      "slide"
+                    ]
                   }
                 },
                 "additionalProperties": false

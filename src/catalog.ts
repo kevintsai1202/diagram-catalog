@@ -4,7 +4,7 @@ import { Decision, Flow, Metaphor, Scatter, Tree } from './components/diagram.ts
 import { Columns, Divider, Report, Section, Slide } from './components/layout.ts'
 import { Comparison, DataTable, Figure, SourceList, Timeline } from './components/reference.ts'
 import { SocialPost, Stamp, Subscribe } from './components/social.ts'
-import { Callout, Checklist, Footnote, Highlights, Paragraph, Quote, Steps } from './components/text.ts'
+import { Callout, Checklist, Footnote, Highlights, Paragraph, Quote, Scenes, Steps } from './components/text.ts'
 import { SUBSET_KEYWORDS, toSubsetSchema } from './schema.ts'
 import { tokens } from './tokens.ts'
 import type { CanvasVariantJson, ComponentDef, ComponentJson, When } from './types.ts'
@@ -14,16 +14,16 @@ import { LOCALES } from './types.ts'
  * 目錄版本（semver）：刪除或改名 props 升 major；新增元件或選填 props 升 minor；只改說明或關鍵字升 patch。
  * 必須與 package.json 的 version 相同（測試守著）。
  */
-export const CATALOG_VERSION = '1.0.0'
+export const CATALOG_VERSION = '1.1.0'
 
 /**
- * 全部元件，順序即輸出順序：先是靜態報告渲染器原有的 24 種（維持原順序），再接只有動畫渲染器有的 12 種。
+ * 全部元件，順序即輸出順序：先是靜態報告渲染器原有的 24 種（維持原順序），再接只有動畫渲染器有的 13 種。
  */
 export const COMPONENTS: ComponentDef[] = [
   Report, Section, Columns, Slide, Divider, Paragraph, Callout, Highlights, Quote, Steps, Footnote,
   KeyFigures, Delta, Gauge, Ranking, Progress, Chart, Heatmap, RegionMap, DataTable, Comparison,
   Timeline, Figure, SourceList,
-  CodeCard, CodeMotion, Terminal, Tree, Decision, Flow, Scatter, Metaphor, Stamp, SocialPost, Subscribe, Checklist,
+  CodeCard, CodeMotion, Terminal, Tree, Decision, Flow, Scatter, Metaphor, Stamp, SocialPost, Subscribe, Checklist, Scenes,
 ]
 
 /** 目錄 JSON 的整體形狀。 */

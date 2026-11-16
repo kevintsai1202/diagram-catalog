@@ -13,7 +13,7 @@ AI 依目錄輸出「元件 id＋props」的 JSON，渲染器再把它畫出來�
 
 ## 內容
 
-- `src/core.ts`：36 個元件的核心 props（[zod](https://zod.dev) 4），以及巢狀項目的 schema（`KeyFigureItem`、`TreeNode`…）。
+- `src/core.ts`：37 個元件的核心 props（[zod](https://zod.dev) 4），以及巢狀項目的 schema（`KeyFigureItem`、`TreeNode`…）。
 - `src/components/*.ts`：每個元件的中繼資料與畫布變體。
 - `src/tokens.ts`：設計 token（深色、淺色、圖表色盤）。
 - `dist/catalog.json`：由原始碼產生的整份目錄，**進版控**，給沒有 TypeScript／zod 的消費端直接讀。
@@ -124,7 +124,7 @@ const KeyFigures = core.KeyFigures.extend({
 | 分類 | 元件 |
 | --- | --- |
 | 版面 | Report、Section、Columns、Slide、Divider、SourceList |
-| 文字 | Paragraph、Callout、Highlights、Quote、Footnote |
+| 文字 | Paragraph、Callout、Highlights、Quote、Footnote、Scenes |
 | 順序 | Steps、Timeline、Checklist |
 | 數字 | KeyFigures、Delta、Gauge、Ranking、Progress |
 | 圖表 | Chart、Heatmap、RegionMap、Scatter |
@@ -134,7 +134,7 @@ const KeyFigures = core.KeyFigures.extend({
 | 結構 | Tree、Decision、Flow、Metaphor |
 | 疊加 | Stamp、SocialPost、Subscribe |
 
-前 24 種（Report～SourceList）來自靜態報告渲染器，後 12 種目前只有動畫渲染器有。兩邊目前沒有對應的，標成 `none`。
+前 24 種（Report～SourceList）來自靜態報告渲染器，後 13 種（1.1.0 起多了多拍子場景 `Scenes`）目前只有動畫渲染器有。兩邊目前沒有對應的，標成 `none`。
 
 ## 版本
 

@@ -26,7 +26,7 @@ export const DataTable = defineComponent({
         adapter: 'audit-table',
         when: null,
         steps: steps(12, '第 i 步出現第 i 列並亮起狀態', 'Step i reveals row i and lights its status', 'i ステップ目で i 行目を表示しステータスを点灯'),
-        limits: { columns: { minItems: 1, maxItems: 3 }, rows: { maxItems: 12 }, 'rows[][]': { maxLength: 40 }, title: { maxLength: 60 }, summary: { maxLength: 60 } },
+        limits: { columns: { minItems: 1, maxItems: 3 }, 'columns[]': { maxLength: 24 }, rows: { maxItems: 12 }, 'rows[][]': { maxLength: 40 }, title: { maxLength: 60 }, summary: { maxLength: 60 } },
         props: z.object({ summary: z.string().nullable().optional() }),
       },
     ],
@@ -54,7 +54,7 @@ export const Comparison = defineComponent({
         template: 'diagram-compare',
         adapter: 'compare',
         when: null,
-        steps: steps(6, '第 1 步左欄出現、第 2 步右欄出現，之後每一步強調一個 highlights', 'Step 1 shows the left column, step 2 the right column, then each step emphasises one highlight', '1 ステップ目で左列、2 ステップ目で右列を表示し、以降は highlights を 1 つずつ強調'),
+        steps: steps(3, '第 1 步左欄出現、第 2 步右欄出現；有 highlights 時第 3 步同時強調全部', 'Step 1 shows the left column, step 2 the right column; with highlights, step 3 emphasises all of them at once', '1 ステップ目で左列、2 ステップ目で右列を表示。highlights があれば 3 ステップ目でまとめて強調'),
         limits: {
           'left.title': { maxLength: 40 },
           'right.title': { maxLength: 40 },

@@ -190,3 +190,44 @@ export const Checklist = defineComponent({
     ],
   },
 })
+
+export const Scenes = defineComponent({
+  id: 'Scenes',
+  version: 1,
+  category: 'text',
+  name: t('多拍子場景', 'Scenes', 'シーン切り替え'),
+  summary: t('依序切換的幾個場景：標題加要點、大數字、引言', 'A few scenes shown in turn: a title with points, a big number, or a quote', '順に切り替わるいくつかのシーン：見出しと要点、大きな数字、引用'),
+  aiGuide: t(
+    'scenes 依序放 1～8 個場景，每個場景用 kind 選版型、只填該版型的欄位：points 填 title（標題）與 points（要點，最多 5 點，每點一句）；number 填 value（原始數值，照抄）、unit（單位或後綴，例如 %、x）、label（說明），notes 最多 2 行補充；quote 填 text（照抄原文）與 by（出處）。想在一段話裡換好幾個重點畫面時，優先用這個元件。',
+    'scenes holds 1–8 scenes in order. Each scene picks a layout with kind and fills only the fields of that layout: points uses title and points (up to 5, one sentence each); number uses value (the raw number, copied), unit (unit or suffix such as % or x) and label, plus up to 2 lines of notes; quote uses text (verbatim) and by (the source). Prefer this component when one stretch of narration needs several key-point screens.',
+    'scenes に 1～8 個のシーンを順に入れる。各シーンは kind でレイアウトを選び、そのレイアウトの欄だけを埋める：points は title（見出し）と points（要点、最大 5 つ、各一文）。number は value（元の数値、資料どおり）、unit（単位や接尾辞、% や x など）、label（説明）、notes は最大 2 行の補足。quote は text（原文どおり）と by（出典）。一続きの話の中で要点の画面を何枚か切り替えたいときはこの部品を優先する。',
+  ),
+  keywords: kw(['場景', '重點畫面', '大數字', '引言', '分段'], ['scenes', 'key points', 'big number', 'quote', 'slides'], ['シーン', '要点', '大きな数字', '引用']),
+  props: core.Scenes,
+  react: { status: 'none', component: null },
+  canvas: {
+    status: 'full',
+    variants: [
+      {
+        template: 'diagram-scenes',
+        adapter: 'scenes',
+        when: null,
+        steps: steps(8, '第 i 步切到第 i 個場景', 'Step i switches to scene i', 'i ステップ目で i 番目のシーンに切り替え'),
+        limits: {
+          scenes: { minItems: 1, maxItems: 8 },
+          'scenes[].title': { maxLength: 40 },
+          'scenes[].points': { maxItems: 5 },
+          'scenes[].points[]': { maxLength: 60 },
+          'scenes[].unit': { maxLength: 8 },
+          'scenes[].label': { maxLength: 40 },
+          'scenes[].notes': { maxItems: 2 },
+          'scenes[].notes[]': { maxLength: 60 },
+          'scenes[].text': { maxLength: 160 },
+          'scenes[].by': { maxLength: 40 },
+          title: { maxLength: 40 },
+        },
+        props: z.object({ transition: z.enum(['fade', 'slide']).optional() }),
+      },
+    ],
+  },
+})
