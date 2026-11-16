@@ -1,0 +1,34 @@
+{
+  "name": "diagram-catalog",
+  "version": "1.0.0",
+  "description": "兩種渲染器共用的圖解元件目錄：元件 id、結構化 props、步驟語意、設計 token、三語說明，產生 JSON 給不同的渲染器使用",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./catalog.json": "./dist/catalog.json"
+  },
+  "files": [
+    "src",
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsx scripts/build.ts",
+    "check": "tsx scripts/build.ts --check",
+    "typecheck": "tsc --noEmit",
+    "test": "tsc --noEmit && vitest run"
+  },
+  "peerDependencies": {
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0",
+    "zod": "^4.6.7"
+  }
+}

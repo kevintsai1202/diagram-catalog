@@ -1,0 +1,4507 @@
+{
+  "catalogVersion": "1.0.0",
+  "locales": [
+    "zh-TW",
+    "en",
+    "ja"
+  ],
+  "schemaSubset": [
+    "type",
+    "properties",
+    "required",
+    "additionalProperties",
+    "items",
+    "minItems",
+    "maxItems",
+    "enum",
+    "minimum",
+    "maximum",
+    "minLength",
+    "maxLength",
+    "$defs",
+    "$ref"
+  ],
+  "tokens": {
+    "dark": {
+      "bg": "#0b1020",
+      "card": "#141b33",
+      "line": "#2a3566",
+      "text": "#eef2ff",
+      "textMuted": "#9aa4d6",
+      "primary": "#818cf8",
+      "flow": "#22d3ee",
+      "warn": "#fbbf24",
+      "bad": "#f87171",
+      "ok": "#34d399"
+    },
+    "light": {
+      "bg": "#ffffff",
+      "card": "#ffffff",
+      "line": "#e5e5e5",
+      "text": "#0a0a0a",
+      "textMuted": "#737373",
+      "primary": "#504fd5",
+      "flow": "#0092b0",
+      "warn": "#d58300",
+      "bad": "#d73337",
+      "ok": "#00935d"
+    },
+    "palette": [
+      "#6366f1",
+      "#10b981",
+      "#f59e0b",
+      "#ec4899",
+      "#0ea5e9",
+      "#8b5cf6",
+      "#ef4444",
+      "#14b8a6"
+    ]
+  },
+  "components": {
+    "Report": {
+      "version": 1,
+      "category": "layout",
+      "name": {
+        "zh-TW": "報告",
+        "en": "Report",
+        "ja": "レポート"
+      },
+      "summary": {
+        "zh-TW": "整份圖解報告的根節點：標題與一兩句總結",
+        "en": "Root of a diagram report: a title and a one- or two-sentence summary",
+        "ja": "図解レポートのルート：タイトルと一、二文の要約"
+      },
+      "aiGuide": {
+        "zh-TW": "只在輸出整份報告時當根節點；子元素依序排列。title 寫主題，summary 一兩句總結，沒有就填 null。",
+        "en": "Use only as the root of a full report; children follow in order. title is the topic; summary is one or two sentences, or null.",
+        "ja": "レポート全体を出力するときのルートとしてだけ使う。子要素は順に並ぶ。title は主題、summary は一、二文の要約（なければ null）。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "報告",
+          "總結",
+          "摘要"
+        ],
+        "en": [
+          "report",
+          "summary"
+        ],
+        "ja": [
+          "レポート",
+          "要約"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "title",
+          "summary"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Report"
+        },
+        "canvas": {
+          "status": "none",
+          "variants": []
+        }
+      }
+    },
+    "Section": {
+      "version": 1,
+      "category": "layout",
+      "name": {
+        "zh-TW": "段落主題",
+        "en": "Section",
+        "ja": "セクション"
+      },
+      "summary": {
+        "zh-TW": "一個段落主題，底下放其他內容元件",
+        "en": "A titled section that groups other content components",
+        "ja": "見出し付きのまとまり。中に他のコンテンツ部品を入れる"
+      },
+      "aiGuide": {
+        "zh-TW": "報告裡用來分段；做成影片時只剩一張標題卡。標題寫成短句，不超過 20 字。",
+        "en": "Groups content in a report; in a video it becomes a single title card. Keep the title short (about 10 words).",
+        "ja": "レポートの区切りに使う。動画では見出しカード一枚になる。見出しは短く（20 字程度まで）。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "段落",
+          "章節",
+          "標題卡"
+        ],
+        "en": [
+          "section",
+          "chapter",
+          "title card"
+        ],
+        "ja": [
+          "セクション",
+          "章",
+          "見出し"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Section"
+        },
+        "canvas": {
+          "status": "partial",
+          "variants": [
+            {
+              "template": "diagram-scenes",
+              "adapter": "scenes-section",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 1 步顯示標題卡",
+                "en": "Step 1 shows the title card",
+                "ja": "1 ステップ目で見出しカードを表示",
+                "max": 1
+              },
+              "limits": {
+                "title": {
+                  "maxLength": 60
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "transition": {
+                    "type": "string",
+                    "enum": [
+                      "fade",
+                      "slide"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Columns": {
+      "version": 1,
+      "category": "layout",
+      "name": {
+        "zh-TW": "並排欄",
+        "en": "Columns",
+        "ja": "段組み"
+      },
+      "summary": {
+        "zh-TW": "把子元素並排成 2～3 欄（樣板用）",
+        "en": "Lays children out in 2–3 columns (for templates)",
+        "ja": "子要素を 2～3 段に並べる（テンプレート用）"
+      },
+      "aiGuide": {
+        "zh-TW": "只給樣板與編輯器用，自動產生內容時不要選。",
+        "en": "For templates and editors only; do not pick it when generating content.",
+        "ja": "テンプレートとエディター専用。内容を自動生成するときは選ばない。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "並排",
+          "分欄"
+        ],
+        "en": [
+          "columns",
+          "side by side"
+        ],
+        "ja": [
+          "段組み",
+          "並列"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "count"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Columns"
+        },
+        "canvas": {
+          "status": "none",
+          "variants": []
+        }
+      }
+    },
+    "Slide": {
+      "version": 1,
+      "category": "layout",
+      "name": {
+        "zh-TW": "投影片頁",
+        "en": "Slide",
+        "ja": "スライド"
+      },
+      "summary": {
+        "zh-TW": "投影片的一頁：版型與換頁效果",
+        "en": "One slide page with a layout and a transition",
+        "ja": "スライド 1 枚：レイアウトと切り替え効果"
+      },
+      "aiGuide": {
+        "zh-TW": "樣板用。做成影片時只保留標題卡，版型與 zoom 換頁沒有對應（zoom 改成淡入淡出）。",
+        "en": "For templates. In a video only the title card remains; layouts and the zoom transition have no equivalent (zoom becomes fade).",
+        "ja": "テンプレート用。動画では見出しカードだけが残り、レイアウトと zoom 切り替えは対応しない（zoom はフェードになる）。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "投影片",
+          "簡報",
+          "頁"
+        ],
+        "en": [
+          "slide",
+          "deck",
+          "page"
+        ],
+        "ja": [
+          "スライド",
+          "プレゼン"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "layout": {
+            "type": "string",
+            "enum": [
+              "title",
+              "title-content",
+              "two-column",
+              "figures"
+            ]
+          },
+          "transition": {
+            "type": "string",
+            "enum": [
+              "fade",
+              "slide",
+              "zoom"
+            ]
+          }
+        },
+        "required": [
+          "title",
+          "layout",
+          "transition"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Slide"
+        },
+        "canvas": {
+          "status": "partial",
+          "variants": [
+            {
+              "template": "diagram-scenes",
+              "adapter": "scenes-slide",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 1 步顯示這一頁的標題卡",
+                "en": "Step 1 shows the slide title card",
+                "ja": "1 ステップ目でこのページの見出しカードを表示",
+                "max": 1
+              },
+              "limits": {
+                "title": {
+                  "maxLength": 60
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Divider": {
+      "version": 1,
+      "category": "layout",
+      "name": {
+        "zh-TW": "分隔線",
+        "en": "Divider",
+        "ja": "区切り線"
+      },
+      "summary": {
+        "zh-TW": "段落之間的分隔線（樣板用）",
+        "en": "A rule between sections (for templates)",
+        "ja": "セクション間の区切り線（テンプレート用）"
+      },
+      "aiGuide": {
+        "zh-TW": "樣板用，影片不需要。",
+        "en": "For templates; not used in videos.",
+        "ja": "テンプレート用。動画では使わない。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "分隔"
+        ],
+        "en": [
+          "divider",
+          "rule"
+        ],
+        "ja": [
+          "区切り"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Divider"
+        },
+        "canvas": {
+          "status": "none",
+          "variants": []
+        }
+      }
+    },
+    "Paragraph": {
+      "version": 1,
+      "category": "text",
+      "name": {
+        "zh-TW": "段落",
+        "en": "Paragraph",
+        "ja": "段落"
+      },
+      "summary": {
+        "zh-TW": "一段文字；影片裡可逐句或逐個字句標出重點",
+        "en": "A paragraph of text; in a video, sentences or phrases get highlighted one by one",
+        "ja": "一段落の文章。動画では文やフレーズを順に強調する"
+      },
+      "aiGuide": {
+        "zh-TW": "text 放一段完整的文字（可分句）。做成影片時，想強調的字句放進畫布擴充的 marks（每個標記一句要框的原文，可加旁註）；不給 marks 就每句一步。",
+        "en": "Put one complete paragraph in text. For video, list the exact phrases to highlight in the canvas extension marks (each may carry a side note); without marks every sentence is one step.",
+        "ja": "text に一段落の文章を入れる。動画では強調したい語句を canvas 拡張の marks に原文のまま並べる（注記も可）。marks がなければ一文ずつ 1 ステップ。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "段落",
+          "重點句",
+          "畫線",
+          "標出"
+        ],
+        "en": [
+          "paragraph",
+          "highlight",
+          "quote text"
+        ],
+        "ja": [
+          "段落",
+          "ハイライト",
+          "強調"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Paragraph"
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-text-highlight",
+              "adapter": "text-highlight",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步標出第 i 個標記；沒有標記時第 i 步標出第 i 句",
+                "en": "Step i highlights mark i; without marks, step i highlights sentence i",
+                "ja": "i ステップ目で i 番目のマーク（マークがなければ i 番目の文）を強調",
+                "max": 20
+              },
+              "limits": {
+                "text": {
+                  "maxLength": 600
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "marks": {
+                  "maxItems": 20
+                },
+                "marks[].note": {
+                  "maxLength": 40
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "marks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "phrase": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "note": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "phrase",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "style": {
+                    "type": "string",
+                    "enum": [
+                      "box",
+                      "marker",
+                      "underline"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Callout": {
+      "version": 1,
+      "category": "text",
+      "name": {
+        "zh-TW": "提示框",
+        "en": "Callout",
+        "ja": "注意書き"
+      },
+      "summary": {
+        "zh-TW": "提醒或補充說明：資料限制、口徑差異、依據不足",
+        "en": "A note or caveat: data limits, definition differences, weak evidence",
+        "ja": "補足や注意：データの制約、定義の違い、根拠不足"
+      },
+      "aiGuide": {
+        "zh-TW": "tone 用 warn 表示限制或警告、info 表示補充；text 一兩句。影片目前不支援，可改用 Section 的標題卡。",
+        "en": "tone is warn for limits or warnings, info for extra notes; text is one or two sentences. Not supported in video yet; use a Section title card instead.",
+        "ja": "tone は制約・警告なら warn、補足なら info。text は一、二文。動画は未対応なので Section の見出しカードで代用する。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "提醒",
+          "注意",
+          "補充",
+          "限制"
+        ],
+        "en": [
+          "note",
+          "caveat",
+          "warning"
+        ],
+        "ja": [
+          "注意",
+          "補足"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "tone": {
+            "type": "string",
+            "enum": [
+              "info",
+              "warn"
+            ]
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tone",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Callout"
+        },
+        "canvas": {
+          "status": "none",
+          "variants": []
+        }
+      }
+    },
+    "Highlights": {
+      "version": 1,
+      "category": "text",
+      "name": {
+        "zh-TW": "重點條列",
+        "en": "Highlights",
+        "ja": "要点"
+      },
+      "summary": {
+        "zh-TW": "2～5 個重點，每點一個短標題加一句說明",
+        "en": "Two to five key points, each with a short title and one sentence",
+        "ja": "2～5 個の要点。短い見出しと一文の説明"
+      },
+      "aiGuide": {
+        "zh-TW": "每點 title 4～12 字、text 一句。做成影片時每個重點是一個場景，依序切換。",
+        "en": "Each point has a 2–6 word title and one sentence. In a video each point becomes one scene, shown in turn.",
+        "ja": "各要点は短い title と一文の text。動画では要点ごとに 1 シーンになり、順に切り替わる。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "重點",
+          "要點",
+          "條列",
+          "摘要"
+        ],
+        "en": [
+          "highlights",
+          "key points",
+          "takeaways"
+        ],
+        "ja": [
+          "要点",
+          "ポイント",
+          "まとめ"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Highlights"
+        },
+        "canvas": {
+          "status": "partial",
+          "variants": [
+            {
+              "template": "diagram-scenes",
+              "adapter": "scenes-highlights",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步切到第 i 個重點的場景",
+                "en": "Step i switches to the scene for point i",
+                "ja": "i ステップ目で i 番目の要点のシーンに切り替え",
+                "max": 8
+              },
+              "limits": {
+                "items": {
+                  "maxItems": 8
+                },
+                "items[].title": {
+                  "maxLength": 40
+                },
+                "items[].text": {
+                  "maxLength": 120
+                },
+                "title": {
+                  "maxLength": 40
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "transition": {
+                    "type": "string",
+                    "enum": [
+                      "fade",
+                      "slide"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Quote": {
+      "version": 1,
+      "category": "text",
+      "name": {
+        "zh-TW": "引言",
+        "en": "Quote",
+        "ja": "引用"
+      },
+      "summary": {
+        "zh-TW": "引用原文的一句關鍵話",
+        "en": "One key sentence quoted verbatim",
+        "ja": "原文から引いた要の一文"
+      },
+      "aiGuide": {
+        "zh-TW": "text 照抄原文，不改寫。影片的出處文字放畫布擴充的 by（例如人名或文件名）。",
+        "en": "Copy text verbatim; do not paraphrase. For video, put the attribution (person or document) in the canvas extension by.",
+        "ja": "text は原文どおりに写し、言い換えない。動画の出典（人名や文書名）は canvas 拡張の by に入れる。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "引言",
+          "引用",
+          "名言",
+          "原話"
+        ],
+        "en": [
+          "quote",
+          "citation",
+          "saying"
+        ],
+        "ja": [
+          "引用",
+          "名言"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Quote"
+        },
+        "canvas": {
+          "status": "partial",
+          "variants": [
+            {
+              "template": "diagram-scenes",
+              "adapter": "scenes-quote",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 1 步顯示引言",
+                "en": "Step 1 shows the quote",
+                "ja": "1 ステップ目で引用を表示",
+                "max": 1
+              },
+              "limits": {
+                "text": {
+                  "maxLength": 160
+                },
+                "by": {
+                  "maxLength": 40
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "by": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Steps": {
+      "version": 1,
+      "category": "sequence",
+      "name": {
+        "zh-TW": "步驟",
+        "en": "Steps",
+        "ja": "ステップ"
+      },
+      "summary": {
+        "zh-TW": "依序編號的流程或步驟",
+        "en": "A numbered process or sequence of steps",
+        "ja": "番号付きの手順・流れ"
+      },
+      "aiGuide": {
+        "zh-TW": "每步 title 是短名詞（2～8 字），text 一句說明。影片做成流程管線，只畫 title、text 會略去；最後的結論放畫布擴充的 conclusion。",
+        "en": "Each step has a short noun title and a one-sentence text. In video it becomes a pipeline that shows only titles (text is dropped); put a closing takeaway in the canvas extension conclusion.",
+        "ja": "各ステップの title は短い名詞、text は一文。動画ではパイプラインになり title だけを描く（text は省かれる）。結論は canvas 拡張の conclusion に。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "步驟",
+          "流程",
+          "程序",
+          "管線",
+          "先後"
+        ],
+        "en": [
+          "steps",
+          "process",
+          "pipeline",
+          "workflow"
+        ],
+        "ja": [
+          "手順",
+          "流れ",
+          "プロセス",
+          "パイプライン"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Steps"
+        },
+        "canvas": {
+          "status": "partial",
+          "variants": [
+            {
+              "template": "diagram-pipeline",
+              "adapter": "pipeline",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步點亮第 i 個節點",
+                "en": "Step i lights up node i",
+                "ja": "i ステップ目で i 番目のノードを点灯",
+                "max": 8
+              },
+              "limits": {
+                "items": {
+                  "maxItems": 8
+                },
+                "items[].title": {
+                  "maxLength": 40
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "subtitle": {
+                  "maxLength": 80
+                },
+                "conclusion": {
+                  "maxLength": 40
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "subtitle": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "conclusion": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Footnote": {
+      "version": 1,
+      "category": "text",
+      "name": {
+        "zh-TW": "註腳",
+        "en": "Footnote",
+        "ja": "脚注"
+      },
+      "summary": {
+        "zh-TW": "資料口徑、四捨五入等小字說明（樣板用）",
+        "en": "Small print such as definitions or rounding (for templates)",
+        "ja": "データの定義や端数処理などの注記（テンプレート用）"
+      },
+      "aiGuide": {
+        "zh-TW": "樣板用，影片不需要。",
+        "en": "For templates; not used in videos.",
+        "ja": "テンプレート用。動画では使わない。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "註腳",
+          "附註"
+        ],
+        "en": [
+          "footnote",
+          "note"
+        ],
+        "ja": [
+          "脚注",
+          "注記"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Footnote"
+        },
+        "canvas": {
+          "status": "none",
+          "variants": []
+        }
+      }
+    },
+    "KeyFigures": {
+      "version": 1,
+      "category": "number",
+      "name": {
+        "zh-TW": "關鍵數字",
+        "en": "Key figures",
+        "ja": "主要な数字"
+      },
+      "summary": {
+        "zh-TW": "幾個並列的關鍵數字卡",
+        "en": "A row of key figure cards",
+        "ja": "主要な数字を並べたカード"
+      },
+      "aiGuide": {
+        "zh-TW": "每項一個指標：label 說明、value 是原始數值（照抄資料，不自己換算）、unit 單位。1～4 項做成數字跳動；5～6 項或想在最後預告下一步時用指標膠囊（canvas.variant 指定 diagram-pills）。",
+        "en": "One metric per item: label, the raw value (copied from the source, never derived), and unit. 1–4 items become count-up figures; use pills (canvas.variant diagram-pills) for 5–6 items or to end with a \"next\" card.",
+        "ja": "1 項目 1 指標：label、元の数値 value（資料どおり、自分で換算しない）、unit。1～4 項目はカウントアップ。5～6 項目や最後に「次へ」カードを出すときはピル（canvas.variant に diagram-pills）。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "數字",
+          "指標",
+          "成果",
+          "KPI",
+          "統計"
+        ],
+        "en": [
+          "figures",
+          "metrics",
+          "KPI",
+          "stats",
+          "numbers"
+        ],
+        "ja": [
+          "数字",
+          "指標",
+          "KPI",
+          "実績"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "label",
+                "value",
+                "unit"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "KeyFigures"
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-pills",
+              "adapter": "pills",
+              "when": {
+                "count": "items",
+                "min": 5,
+                "max": 6
+              },
+              "steps": {
+                "zh-TW": "第 i 步彈出第 i 枚膠囊；有預告卡時多一步讓卡片飛入",
+                "en": "Step i pops pill i; one extra step flies in the next card if present",
+                "ja": "i ステップ目で i 番目のピルを表示。予告カードがあればもう 1 ステップでカードが入る",
+                "max": 7
+              },
+              "limits": {
+                "items": {
+                  "minItems": 1,
+                  "maxItems": 6
+                },
+                "items[].label": {
+                  "maxLength": 60
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "next.label": {
+                  "maxLength": 12
+                },
+                "next.title": {
+                  "maxLength": 40
+                },
+                "next.text": {
+                  "maxLength": 120
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "next": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "label": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "text": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "title",
+                      "text"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            {
+              "template": "diagram-countup",
+              "adapter": "countup",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步彈出第 i 個指標並從 0 數到目標值",
+                "en": "Step i pops metric i and counts up from 0",
+                "ja": "i ステップ目で i 番目の指標を表示し 0 からカウントアップ",
+                "max": 4
+              },
+              "limits": {
+                "items": {
+                  "minItems": 1,
+                  "maxItems": 4
+                },
+                "items[].label": {
+                  "maxLength": 60
+                },
+                "title": {
+                  "maxLength": 60
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "countTime": {
+                    "type": "number",
+                    "minimum": 0.5,
+                    "maximum": 5
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Delta": {
+      "version": 1,
+      "category": "number",
+      "name": {
+        "zh-TW": "前後增減",
+        "en": "Delta",
+        "ja": "増減"
+      },
+      "summary": {
+        "zh-TW": "同一指標前後兩期的數值與增減",
+        "en": "One metric at two points in time and the change between them",
+        "ja": "同じ指標の前後 2 時点の値と増減"
+      },
+      "aiGuide": {
+        "zh-TW": "before／after 各放一期的原始數值，增減與箭頭由畫面計算，不要自己算差額。影片目前不支援，可改用 KeyFigures 放兩個數字。",
+        "en": "Put the raw value for each period in before and after; the change and arrow are computed by the renderer. Not supported in video yet; use KeyFigures with two items instead.",
+        "ja": "before／after に各時点の元の数値を入れる。増減と矢印は描画側で計算する。動画は未対応なので KeyFigures の 2 項目で代用する。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "增減",
+          "成長",
+          "前後比較",
+          "變化"
+        ],
+        "en": [
+          "delta",
+          "change",
+          "growth",
+          "before and after"
+        ],
+        "ja": [
+          "増減",
+          "変化",
+          "前後比較"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "before": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "label",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "after": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "label",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "label",
+          "before",
+          "after",
+          "unit"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Delta"
+        },
+        "canvas": {
+          "status": "none",
+          "variants": []
+        }
+      }
+    },
+    "Gauge": {
+      "version": 1,
+      "category": "number",
+      "name": {
+        "zh-TW": "環形比例",
+        "en": "Gauge",
+        "ja": "ゲージ"
+      },
+      "summary": {
+        "zh-TW": "單一比例或達成率的環形圖",
+        "en": "A ring showing a single ratio or completion rate",
+        "ja": "単一の割合や達成率を示すリング"
+      },
+      "aiGuide": {
+        "zh-TW": "value 是原始數值、max 是滿格（百分比通常 100）。",
+        "en": "value is the raw number and max is the full scale (usually 100 for percentages).",
+        "ja": "value は元の数値、max は満点（百分率なら通常 100）。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "比例",
+          "達成率",
+          "完成度",
+          "百分比"
+        ],
+        "en": [
+          "gauge",
+          "ratio",
+          "percentage",
+          "completion"
+        ],
+        "ja": [
+          "割合",
+          "達成率",
+          "進捗"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          },
+          "max": {
+            "type": "number"
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "label",
+          "value",
+          "max",
+          "unit"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Gauge"
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-countup",
+              "adapter": "countup-gauge",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 1 步彈出環形並從 0 數到目標值",
+                "en": "Step 1 pops the ring and counts up from 0",
+                "ja": "1 ステップ目でリングを表示し 0 からカウントアップ",
+                "max": 1
+              },
+              "limits": {
+                "label": {
+                  "maxLength": 60
+                },
+                "title": {
+                  "maxLength": 60
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "countTime": {
+                    "type": "number",
+                    "minimum": 0.5,
+                    "maximum": 5
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Ranking": {
+      "version": 1,
+      "category": "number",
+      "name": {
+        "zh-TW": "排行榜",
+        "en": "Ranking",
+        "ja": "ランキング"
+      },
+      "summary": {
+        "zh-TW": "依數值由高到低排列的排行",
+        "en": "Items ranked from highest to lowest value",
+        "ja": "値の大きい順に並べたランキング"
+      },
+      "aiGuide": {
+        "zh-TW": "items 放名稱與原始數值，順序不拘（畫面會排序，第一名醒目）。",
+        "en": "List names with raw values in any order; the renderer sorts them and emphasises the top item.",
+        "ja": "items に名前と元の数値を入れる。順序は問わない（描画側で並べ替え、1 位を強調）。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "排行",
+          "排名",
+          "前幾名",
+          "最高"
+        ],
+        "en": [
+          "ranking",
+          "top",
+          "leaderboard"
+        ],
+        "ja": [
+          "ランキング",
+          "順位",
+          "上位"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "items": {
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "label",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "unit",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Ranking"
+        },
+        "canvas": {
+          "status": "partial",
+          "variants": [
+            {
+              "template": "diagram-bar-chart",
+              "adapter": "bar-ranking",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步長出第 i 根長條（依數值由高到低）",
+                "en": "Step i grows bar i (highest value first)",
+                "ja": "i ステップ目で i 本目のバーを伸ばす（値の大きい順）",
+                "max": 12
+              },
+              "limits": {
+                "items": {
+                  "maxItems": 12
+                },
+                "items[].label": {
+                  "maxLength": 40
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "unit": {
+                  "maxLength": 8
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "decimals": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 3
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Progress": {
+      "version": 1,
+      "category": "number",
+      "name": {
+        "zh-TW": "比例條",
+        "en": "Progress bars",
+        "ja": "割合バー"
+      },
+      "summary": {
+        "zh-TW": "多項比例條，例如各類別占比",
+        "en": "Several proportion bars, such as the share of each category",
+        "ja": "カテゴリごとの構成比などを示す複数のバー"
+      },
+      "aiGuide": {
+        "zh-TW": "max 是滿格（百分比通常 100），每項放原始數值。",
+        "en": "max is the full scale (usually 100 for percentages); each item holds its raw value.",
+        "ja": "max は満点（百分率なら通常 100）。各項目に元の数値を入れる。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "占比",
+          "比例",
+          "組成",
+          "進度"
+        ],
+        "en": [
+          "share",
+          "proportion",
+          "progress",
+          "breakdown"
+        ],
+        "ja": [
+          "構成比",
+          "割合",
+          "進捗"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "max": {
+            "type": "number"
+          },
+          "items": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "label",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "unit",
+          "max",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Progress"
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-bar-chart",
+              "adapter": "bar-progress",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步長出第 i 根長條",
+                "en": "Step i grows bar i",
+                "ja": "i ステップ目で i 本目のバーを伸ばす",
+                "max": 12
+              },
+              "limits": {
+                "items": {
+                  "maxItems": 12
+                },
+                "items[].label": {
+                  "maxLength": 40
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "unit": {
+                  "maxLength": 8
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "decimals": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 3
+                  },
+                  "highlight": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 12
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Chart": {
+      "version": 1,
+      "category": "chart",
+      "name": {
+        "zh-TW": "圖表",
+        "en": "Chart",
+        "ja": "グラフ"
+      },
+      "summary": {
+        "zh-TW": "重新整理資料後畫成的長條、折線等圖表",
+        "en": "A bar, line or other chart redrawn from the data",
+        "ja": "データを整理して描き直した棒・折れ線などのグラフ"
+      },
+      "aiGuide": {
+        "zh-TW": "類別比較用 bar（類別名稱長用 horizontal-bar），時間趨勢用 line。categories 是橫軸類別，每個 series 的 values 與 categories 一一對應。影片只支援 bar、horizontal-bar（一個 series）與 line（最多 4 條）；其他 kind 請改用 bar。",
+        "en": "Use bar to compare categories (horizontal-bar for long names) and line for trends over time. categories is the x axis; each series has one value per category. Video supports only bar and horizontal-bar (one series) and line (up to 4 series); use bar instead of other kinds.",
+        "ja": "カテゴリ比較は bar（名前が長ければ horizontal-bar）、時系列は line。categories は横軸で、各 series の values は categories と一対一。動画は bar・horizontal-bar（series 1 本）と line（最大 4 本）のみ対応。それ以外の kind は bar に。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "圖表",
+          "長條圖",
+          "折線圖",
+          "趨勢",
+          "比較"
+        ],
+        "en": [
+          "chart",
+          "bar chart",
+          "line chart",
+          "trend"
+        ],
+        "ja": [
+          "グラフ",
+          "棒グラフ",
+          "折れ線",
+          "推移"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "line",
+              "bar",
+              "horizontal-bar",
+              "stacked-bar",
+              "pie",
+              "area",
+              "combo",
+              "waterfall"
+            ]
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "series": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "values"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "kind",
+          "unit",
+          "categories",
+          "series"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Chart"
+        },
+        "canvas": {
+          "status": "partial",
+          "variants": [
+            {
+              "template": "diagram-bar-chart",
+              "adapter": "bar-chart",
+              "when": {
+                "field": "kind",
+                "in": [
+                  "bar",
+                  "horizontal-bar"
+                ]
+              },
+              "steps": {
+                "zh-TW": "第 i 步長出第 i 個類別的長條",
+                "en": "Step i grows the bar for category i",
+                "ja": "i ステップ目で i 番目のカテゴリのバーを伸ばす",
+                "max": 12
+              },
+              "limits": {
+                "series": {
+                  "minItems": 1,
+                  "maxItems": 1
+                },
+                "categories": {
+                  "maxItems": 12
+                },
+                "categories[]": {
+                  "maxLength": 40
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "unit": {
+                  "maxLength": 8
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "decimals": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 3
+                  },
+                  "highlight": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 12
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            {
+              "template": "diagram-curve-chart",
+              "adapter": "curve-chart",
+              "when": {
+                "field": "kind",
+                "in": [
+                  "line"
+                ]
+              },
+              "steps": {
+                "zh-TW": "第 i 步畫出第 i 條線",
+                "en": "Step i draws line i",
+                "ja": "i ステップ目で i 本目の線を描く",
+                "max": 4
+              },
+              "limits": {
+                "series": {
+                  "minItems": 1,
+                  "maxItems": 4
+                },
+                "categories": {
+                  "minItems": 2,
+                  "maxItems": 12
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "xLabel": {
+                  "maxLength": 20
+                },
+                "yLabel": {
+                  "maxLength": 20
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "smooth": {
+                    "type": "boolean"
+                  },
+                  "grid": {
+                    "type": "boolean"
+                  },
+                  "xLabel": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "yLabel": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Heatmap": {
+      "version": 1,
+      "category": "chart",
+      "name": {
+        "zh-TW": "熱度表",
+        "en": "Heatmap",
+        "ja": "ヒートマップ"
+      },
+      "summary": {
+        "zh-TW": "列×欄的數值表，顏色深淺表示大小",
+        "en": "A rows-by-columns grid where colour intensity shows the value",
+        "ja": "行×列の表で、色の濃さが値の大きさを表す"
+      },
+      "aiGuide": {
+        "zh-TW": "values[i][j] 對應 rows[i]、columns[j]，缺值為 null。影片目前不支援。",
+        "en": "values[i][j] belongs to rows[i] and columns[j]; use null for missing values. Not supported in video yet.",
+        "ja": "values[i][j] は rows[i]・columns[j] に対応、欠損は null。動画は未対応。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "熱度",
+          "交叉表",
+          "矩陣"
+        ],
+        "en": [
+          "heatmap",
+          "matrix",
+          "cross table"
+        ],
+        "ja": [
+          "ヒートマップ",
+          "クロス表"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rows": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "columns": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "values": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "required": [
+          "title",
+          "unit",
+          "rows",
+          "columns",
+          "values"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Heatmap"
+        },
+        "canvas": {
+          "status": "none",
+          "variants": []
+        }
+      }
+    },
+    "RegionMap": {
+      "version": 1,
+      "category": "chart",
+      "name": {
+        "zh-TW": "地區方格地圖",
+        "en": "Region map",
+        "ja": "地域マップ"
+      },
+      "summary": {
+        "zh-TW": "依數值著色的地區方格地圖",
+        "en": "A tile map of regions coloured by value",
+        "ja": "値で色分けした地域のタイルマップ"
+      },
+      "aiGuide": {
+        "zh-TW": "region 用渲染器認得的地區名稱。影片目前不支援。",
+        "en": "Use region names the renderer recognises. Not supported in video yet.",
+        "ja": "region は描画側が認識できる地域名を使う。動画は未対応。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "地圖",
+          "縣市",
+          "地區分布"
+        ],
+        "en": [
+          "map",
+          "regions",
+          "geography"
+        ],
+        "ja": [
+          "地図",
+          "地域",
+          "都道府県"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "items": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "region": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "region",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "unit",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "RegionMap"
+        },
+        "canvas": {
+          "status": "none",
+          "variants": []
+        }
+      }
+    },
+    "DataTable": {
+      "version": 1,
+      "category": "table",
+      "name": {
+        "zh-TW": "表格",
+        "en": "Data table",
+        "ja": "表"
+      },
+      "summary": {
+        "zh-TW": "只留需要的列與欄的精簡表格",
+        "en": "A compact table with only the rows and columns that matter",
+        "ja": "必要な行と列だけの簡潔な表"
+      },
+      "aiGuide": {
+        "zh-TW": "columns 是表頭，rows 每列的格數與 columns 相同。影片做成稽核表：最多 3 欄、12 列，最後一欄若是 pass／fail／warn 會畫成狀態圖示。",
+        "en": "columns is the header; every row has one cell per column. In video it becomes an audit table: up to 3 columns and 12 rows, and a last column of pass/fail/warn is drawn as status icons.",
+        "ja": "columns は見出し、rows の各行は columns と同じセル数。動画では監査表になり、最大 3 列・12 行、最後の列が pass／fail／warn ならステータスアイコンで描く。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "表格",
+          "對照表",
+          "稽核",
+          "檢查結果"
+        ],
+        "en": [
+          "table",
+          "audit",
+          "results"
+        ],
+        "ja": [
+          "表",
+          "一覧",
+          "監査"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "title",
+          "columns",
+          "rows"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "DataTable"
+        },
+        "canvas": {
+          "status": "partial",
+          "variants": [
+            {
+              "template": "diagram-audit-table",
+              "adapter": "audit-table",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步出現第 i 列並亮起狀態",
+                "en": "Step i reveals row i and lights its status",
+                "ja": "i ステップ目で i 行目を表示しステータスを点灯",
+                "max": 12
+              },
+              "limits": {
+                "columns": {
+                  "minItems": 1,
+                  "maxItems": 3
+                },
+                "rows": {
+                  "maxItems": 12
+                },
+                "rows[][]": {
+                  "maxLength": 40
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "summary": {
+                  "maxLength": 60
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "summary": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Comparison": {
+      "version": 1,
+      "category": "compare",
+      "name": {
+        "zh-TW": "雙欄對照",
+        "en": "Comparison",
+        "ja": "比較"
+      },
+      "summary": {
+        "zh-TW": "左右兩欄對照兩種做法、兩個時期或兩份文件",
+        "en": "Two columns comparing two approaches, periods or documents",
+        "ja": "2 つのやり方・時期・文書を左右で比較"
+      },
+      "aiGuide": {
+        "zh-TW": "兩邊各列幾點、每點一句；要強調的點放進畫布擴充的 highlights。程式碼對照時設 mono。",
+        "en": "List a few one-sentence points on each side; put points to emphasise in the canvas extension highlights. Set mono when comparing code.",
+        "ja": "左右それぞれ数点を一文ずつ。強調したい点は canvas 拡張の highlights に。コードを比べるときは mono を設定。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "對照",
+          "比較",
+          "前後",
+          "優缺點",
+          "差異"
+        ],
+        "en": [
+          "compare",
+          "versus",
+          "before and after",
+          "pros and cons"
+        ],
+        "ja": [
+          "比較",
+          "対比",
+          "ビフォーアフター"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "left": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "points": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "title",
+              "points"
+            ],
+            "additionalProperties": false
+          },
+          "right": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "points": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "title",
+              "points"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "left",
+          "right"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Comparison"
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-compare",
+              "adapter": "compare",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 1 步左欄出現、第 2 步右欄出現，之後每一步強調一個 highlights",
+                "en": "Step 1 shows the left column, step 2 the right column, then each step emphasises one highlight",
+                "ja": "1 ステップ目で左列、2 ステップ目で右列を表示し、以降は highlights を 1 つずつ強調",
+                "max": 6
+              },
+              "limits": {
+                "left.title": {
+                  "maxLength": 40
+                },
+                "right.title": {
+                  "maxLength": 40
+                },
+                "left.points": {
+                  "maxItems": 12
+                },
+                "right.points": {
+                  "maxItems": 12
+                },
+                "*.points[]": {
+                  "maxLength": 120
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "highlights": {
+                  "maxItems": 4
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "mono": {
+                    "type": "boolean"
+                  },
+                  "highlights": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "side": {
+                          "type": "string",
+                          "enum": [
+                            "left",
+                            "right"
+                          ]
+                        },
+                        "from": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "to": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      },
+                      "required": [
+                        "side",
+                        "from",
+                        "to"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Timeline": {
+      "version": 1,
+      "category": "sequence",
+      "name": {
+        "zh-TW": "時間軸",
+        "en": "Timeline",
+        "ja": "タイムライン"
+      },
+      "summary": {
+        "zh-TW": "依時間排列的事件或里程碑",
+        "en": "Events or milestones in time order",
+        "ja": "時系列に並べた出来事やマイルストーン"
+      },
+      "aiGuide": {
+        "zh-TW": "依時間先後排列；date 寫成短字串（2024、2024 春、3 月），text 一句。",
+        "en": "Order items by time; date is a short string (2024, Spring 2024, March) and text is one sentence.",
+        "ja": "時系列順に並べる。date は短い文字列（2024、2024 春、3 月）、text は一文。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "時間軸",
+          "里程碑",
+          "歷程",
+          "沿革",
+          "年表"
+        ],
+        "en": [
+          "timeline",
+          "milestones",
+          "history",
+          "roadmap"
+        ],
+        "ja": [
+          "タイムライン",
+          "沿革",
+          "年表",
+          "マイルストーン"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "date",
+                "title",
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Timeline"
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-timeline",
+              "adapter": "timeline",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步鏡頭移到第 i 站；開啟 overview 時多一步拉遠看全部",
+                "en": "Step i pans to stop i; with overview on, one extra step zooms out to show all stops",
+                "ja": "i ステップ目で i 番目の地点へ移動。overview が有効ならもう 1 ステップで全体を表示",
+                "max": 11
+              },
+              "limits": {
+                "items": {
+                  "maxItems": 10
+                },
+                "items[].date": {
+                  "maxLength": 20
+                },
+                "items[].title": {
+                  "maxLength": 40
+                },
+                "items[].text": {
+                  "maxLength": 120
+                },
+                "title": {
+                  "maxLength": 60
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "overview": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Figure": {
+      "version": 1,
+      "category": "media",
+      "name": {
+        "zh-TW": "圖片",
+        "en": "Figure",
+        "ja": "図"
+      },
+      "summary": {
+        "zh-TW": "顯示一張既有的圖片並加說明",
+        "en": "Shows an existing image with a caption",
+        "ja": "既存の画像を説明付きで表示"
+      },
+      "aiGuide": {
+        "zh-TW": "只能用已經存在的圖片（照片、截圖、示意圖），不產生新圖。影片的圖片放畫布擴充的 image（素材 id），要框出或放大的區域放 regions（左上角與寬高，佔整張圖的百分比）。",
+        "en": "Only for existing images (photos, screenshots, illustrations); never generate one. For video, put the asset id in the canvas extension image and the areas to frame or zoom in regions (top-left corner and size as percentages of the image).",
+        "ja": "既存の画像（写真・スクリーンショット・図）専用で、新しい画像は作らない。動画では素材 id を canvas 拡張の image に、枠や拡大する範囲を regions（左上と幅高さ、画像に対する百分率）に入れる。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "圖片",
+          "截圖",
+          "照片",
+          "示意圖"
+        ],
+        "en": [
+          "image",
+          "screenshot",
+          "photo",
+          "figure"
+        ],
+        "ja": [
+          "画像",
+          "スクリーンショット",
+          "写真"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "caption": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "caption"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "Figure"
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-image-focus",
+              "adapter": "image-focus",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步框出或放大第 i 個區域",
+                "en": "Step i frames or zooms into region i",
+                "ja": "i ステップ目で i 番目の範囲を枠で囲むか拡大",
+                "max": 8
+              },
+              "limits": {
+                "regions": {
+                  "maxItems": 8
+                },
+                "regions[].note": {
+                  "maxLength": 40
+                },
+                "title": {
+                  "maxLength": 60
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "regions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "y": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "w": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "h": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "note": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y",
+                        "w",
+                        "h",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "frame",
+                      "zoom"
+                    ]
+                  }
+                },
+                "required": [
+                  "image"
+                ],
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "SourceList": {
+      "version": 1,
+      "category": "layout",
+      "name": {
+        "zh-TW": "來源清單",
+        "en": "Source list",
+        "ja": "出典一覧"
+      },
+      "summary": {
+        "zh-TW": "列出引用的所有資料來源（樣板用）",
+        "en": "Lists every cited source (for templates)",
+        "ja": "引用したすべての出典を一覧表示（テンプレート用）"
+      },
+      "aiGuide": {
+        "zh-TW": "樣板用，影片不需要。",
+        "en": "For templates; not used in videos.",
+        "ja": "テンプレート用。動画では使わない。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "來源",
+          "參考資料"
+        ],
+        "en": [
+          "sources",
+          "references"
+        ],
+        "ja": [
+          "出典",
+          "参考資料"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "full",
+          "component": "SourceList"
+        },
+        "canvas": {
+          "status": "none",
+          "variants": []
+        }
+      }
+    },
+    "CodeCard": {
+      "version": 1,
+      "category": "code",
+      "name": {
+        "zh-TW": "程式碼卡片",
+        "en": "Code card",
+        "ja": "コードカード"
+      },
+      "summary": {
+        "zh-TW": "等寬字的程式碼卡片，逐步強調指定的行",
+        "en": "A monospaced code card that highlights chosen lines step by step",
+        "ja": "指定した行を順に強調する等幅のコードカード"
+      },
+      "aiGuide": {
+        "zh-TW": "code 放原始程式碼（保留換行與縮排）。steps 每步列出要強調的行號（1 起算）。想在某一步放大並加警示時，用畫布擴充的 popupStep 與 popupNote。",
+        "en": "Put the source in code, keeping line breaks and indentation. Each step lists the line numbers (1-based) to highlight. To zoom in with a warning on one step, use popupStep and popupNote in the canvas extension.",
+        "ja": "code にソースコードを改行・インデントごと入れる。steps は各ステップで強調する行番号（1 始まり）。あるステップで拡大して警告を出すなら canvas 拡張の popupStep と popupNote を使う。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "程式碼",
+          "原始碼",
+          "設定檔",
+          "程式"
+        ],
+        "en": [
+          "code",
+          "source",
+          "snippet",
+          "config"
+        ],
+        "ja": [
+          "コード",
+          "ソース",
+          "設定ファイル"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "fileName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "lines": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              },
+              "required": [
+                "lines"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "fileName",
+          "code",
+          "steps"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-code",
+              "adapter": "code",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步強調第 i 組行號",
+                "en": "Step i highlights the lines of step i",
+                "ja": "i ステップ目で i 番目の行群を強調",
+                "max": 20
+              },
+              "limits": {
+                "code": {
+                  "maxLength": 1200
+                },
+                "steps": {
+                  "maxItems": 20
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "fileName": {
+                  "maxLength": 40
+                },
+                "popupNote": {
+                  "maxLength": 40
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "popupStep": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 8
+                  },
+                  "popupNote": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "CodeMotion": {
+      "version": 1,
+      "category": "code",
+      "name": {
+        "zh-TW": "程式碼動畫",
+        "en": "Code motion",
+        "ja": "コードアニメーション"
+      },
+      "summary": {
+        "zh-TW": "程式碼逐字打出、顯示差異或捲到目標行",
+        "en": "Code that types itself out, shows a diff, or scrolls to a target line",
+        "ja": "コードを一文字ずつ打つ、差分を見せる、目的の行へスクロールする"
+      },
+      "aiGuide": {
+        "zh-TW": "mode 選 type（逐字打字）、diff（差異）或 scroll（捲到目標行並聚光）。diff 時 code 每行開頭用 + 表示新增、- 表示刪除、空白表示不變。steps 每步列出這一步處理的行號。",
+        "en": "mode is type (typed out), diff, or scroll (scroll to and spotlight a line). In diff mode every code line starts with + for added, - for removed, or a space for unchanged. Each step lists the line numbers it covers.",
+        "ja": "mode は type（タイプ表示）、diff（差分）、scroll（目的の行へスクロールして強調）。diff では code の各行頭を追加なら +、削除なら -、変更なしなら空白にする。steps は各ステップで扱う行番号。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "打字",
+          "差異",
+          "修改",
+          "捲動",
+          "程式碼"
+        ],
+        "en": [
+          "typing",
+          "diff",
+          "change",
+          "scroll",
+          "code"
+        ],
+        "ja": [
+          "タイピング",
+          "差分",
+          "変更",
+          "コード"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "fileName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "type",
+              "diff",
+              "scroll"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "lines": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              },
+              "required": [
+                "lines"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "fileName",
+          "mode",
+          "code",
+          "steps"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-code-motion",
+              "adapter": "code-motion",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步進行第 i 段（打字、差異或捲動）",
+                "en": "Step i plays segment i (typing, diff or scroll)",
+                "ja": "i ステップ目で i 番目の区間（タイプ・差分・スクロール）を再生",
+                "max": 20
+              },
+              "limits": {
+                "code": {
+                  "maxLength": 1200
+                },
+                "steps": {
+                  "maxItems": 20
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "fileName": {
+                  "maxLength": 40
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "cps": {
+                    "type": "number",
+                    "minimum": 4,
+                    "maximum": 60
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Terminal": {
+      "version": 1,
+      "category": "code",
+      "name": {
+        "zh-TW": "終端機",
+        "en": "Terminal",
+        "ja": "ターミナル"
+      },
+      "summary": {
+        "zh-TW": "終端機視窗裡逐一打出指令並印出結果",
+        "en": "A terminal window that types commands and prints their output",
+        "ja": "ターミナルでコマンドを打ち、結果を表示する"
+      },
+      "aiGuide": {
+        "zh-TW": "commands 每項一個指令與它的輸出行；輸出行開頭用 ✓ 表示成功、✗ 表示失敗、! 表示警告。prompt 是提示字元（預設 $）。",
+        "en": "Each entry is one command and its output lines; start an output line with ✓ for success, ✗ for failure or ! for a warning. prompt is the prompt character (default $).",
+        "ja": "commands は 1 項目 1 コマンドとその出力行。出力行の先頭は成功なら ✓、失敗なら ✗、警告なら !。prompt はプロンプト文字（既定は $）。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "終端機",
+          "指令",
+          "命令列",
+          "執行結果"
+        ],
+        "en": [
+          "terminal",
+          "command line",
+          "shell",
+          "CLI"
+        ],
+        "ja": [
+          "ターミナル",
+          "コマンド",
+          "シェル"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "windowTitle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "prompt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "commands": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "command": {
+                  "type": "string"
+                },
+                "output": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "command",
+                "output"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "windowTitle",
+          "prompt",
+          "commands"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-terminal",
+              "adapter": "terminal",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步打出第 i 個指令並印出它的輸出",
+                "en": "Step i types command i and prints its output",
+                "ja": "i ステップ目で i 番目のコマンドを打ち、出力を表示",
+                "max": 20
+              },
+              "limits": {
+                "commands": {
+                  "maxItems": 20
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "windowTitle": {
+                  "maxLength": 40
+                },
+                "prompt": {
+                  "maxLength": 8
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "cps": {
+                    "type": "number",
+                    "minimum": 4,
+                    "maximum": 60
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Tree": {
+      "version": 1,
+      "category": "structure",
+      "name": {
+        "zh-TW": "階層樹",
+        "en": "Tree",
+        "ja": "ツリー"
+      },
+      "summary": {
+        "zh-TW": "節點逐個或逐層展開的階層樹",
+        "en": "A hierarchy whose nodes appear one by one or level by level",
+        "ja": "ノードが一つずつ、または階層ごとに現れる階層図"
+      },
+      "aiGuide": {
+        "zh-TW": "nodes 是第一層（可多個根），每個節點 label 一個短詞，children 放下一層。整棵樹最多 20 個節點、4 層。",
+        "en": "nodes is the top level (several roots allowed); each node has a short label and its children. At most 20 nodes and 4 levels in total.",
+        "ja": "nodes は第 1 階層（ルートは複数可）。各ノードは短い label と children。全体で最大 20 ノード・4 階層。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "階層",
+          "樹狀",
+          "分類",
+          "架構",
+          "目錄"
+        ],
+        "en": [
+          "tree",
+          "hierarchy",
+          "taxonomy",
+          "structure"
+        ],
+        "ja": [
+          "ツリー",
+          "階層",
+          "分類",
+          "構成"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nodes": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/TreeNode"
+            }
+          }
+        },
+        "required": [
+          "title",
+          "nodes"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TreeNode": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "children": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TreeNode"
+                }
+              }
+            },
+            "required": [
+              "label"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-tree",
+              "adapter": "tree",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步展開第 i 個節點（依先序）或第 i 層",
+                "en": "Step i reveals node i (pre-order) or level i",
+                "ja": "i ステップ目で i 番目のノード（先行順）または i 階層目を展開",
+                "max": 20
+              },
+              "limits": {
+                "nodes": {
+                  "maxNodes": 20,
+                  "maxDepth": 4
+                },
+                "title": {
+                  "maxLength": 60
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "reveal": {
+                    "type": "string",
+                    "enum": [
+                      "node",
+                      "level"
+                    ]
+                  },
+                  "highlight": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 20
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Decision": {
+      "version": 1,
+      "category": "structure",
+      "name": {
+        "zh-TW": "決策樹",
+        "en": "Decision tree",
+        "ja": "決定木"
+      },
+      "summary": {
+        "zh-TW": "是／否判斷一路分支到結果的決策樹",
+        "en": "A yes/no decision tree that branches down to outcomes",
+        "ja": "はい／いいえで分岐して結果に至る決定木"
+      },
+      "aiGuide": {
+        "zh-TW": "root 從第一個判斷開始。kind 為 decision 的節點是判斷（問句），result 是結果。每個節點最多 2 個子節點，branch 寫走到這個子節點的分支標籤（6 字內，例如「是」「否」）。最多 15 個節點、4 層。",
+        "en": "root starts at the first question. Nodes with kind decision are questions; result nodes are outcomes. Each node has at most 2 children, and branch is the label on the edge into that child (up to 6 characters, e.g. \"yes\", \"no\"). At most 15 nodes and 4 levels.",
+        "ja": "root は最初の判断から始める。kind が decision のノードは判断（問い）、result は結果。各ノードの子は最大 2 つで、branch はその子へ進む分岐ラベル（6 文字以内、例：「はい」「いいえ」）。最大 15 ノード・4 階層。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "決策",
+          "判斷",
+          "是否",
+          "分支",
+          "流程判斷"
+        ],
+        "en": [
+          "decision",
+          "yes or no",
+          "branch",
+          "flowchart"
+        ],
+        "ja": [
+          "決定木",
+          "判断",
+          "分岐",
+          "はい・いいえ"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "root": {
+            "$ref": "#/$defs/DecisionNode"
+          }
+        },
+        "required": [
+          "title",
+          "root"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DecisionNode": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "decision",
+                  "result"
+                ]
+              },
+              "branch": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "children": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/DecisionNode"
+                }
+              }
+            },
+            "required": [
+              "label",
+              "kind"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-decision",
+              "adapter": "decision",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步畫出第 i 個節點（依先序）或第 i 層",
+                "en": "Step i draws node i (pre-order) or level i",
+                "ja": "i ステップ目で i 番目のノード（先行順）または i 階層目を描く",
+                "max": 15
+              },
+              "limits": {
+                "root": {
+                  "maxNodes": 15,
+                  "maxDepth": 4,
+                  "maxChildren": 2
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "yesLabel": {
+                  "maxLength": 6
+                },
+                "noLabel": {
+                  "maxLength": 6
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "yesLabel": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "noLabel": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "reveal": {
+                    "type": "string",
+                    "enum": [
+                      "node",
+                      "level"
+                    ]
+                  },
+                  "highlight": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 15
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Flow": {
+      "version": 1,
+      "category": "structure",
+      "name": {
+        "zh-TW": "架構資料流",
+        "en": "Flow",
+        "ja": "データフロー"
+      },
+      "summary": {
+        "zh-TW": "方塊排在格子上、連線逐條點亮的架構圖",
+        "en": "An architecture diagram with boxes on a grid and links lit one by one",
+        "ja": "ボックスを格子に配置し、接続線を一本ずつ点灯する構成図"
+      },
+      "aiGuide": {
+        "zh-TW": "boxes 每個方塊寫名稱與格位（col 欄 1～6、row 列 1～4，同一格只放一個），名稱不可重複。links 的 from／to 寫方塊名稱，label 是線上的短標籤。最多 12 個方塊、16 條連線。",
+        "en": "Each box has a unique name and a grid cell (col 1–6, row 1–4; one box per cell). In links, from and to are box names and label is a short tag on the line. At most 12 boxes and 16 links.",
+        "ja": "boxes は各ボックスの名前（重複不可）と位置（col 1～6、row 1～4、1 マス 1 個）。links の from／to はボックス名、label は線上の短いラベル。最大 12 ボックス・16 本。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "架構",
+          "資料流",
+          "系統",
+          "元件關係",
+          "流向"
+        ],
+        "en": [
+          "architecture",
+          "data flow",
+          "system",
+          "pipeline"
+        ],
+        "ja": [
+          "構成",
+          "アーキテクチャ",
+          "データフロー"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "boxes": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "col": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "row": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "name",
+                "col",
+                "row"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "from",
+                "to",
+                "label"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "boxes",
+          "links"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-flow",
+              "adapter": "flow",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步點亮第 i 條連線與它兩端的方塊",
+                "en": "Step i lights link i and the boxes at both ends",
+                "ja": "i ステップ目で i 本目の線と両端のボックスを点灯",
+                "max": 16
+              },
+              "limits": {
+                "boxes": {
+                  "maxItems": 12
+                },
+                "boxes[].name": {
+                  "maxLength": 20
+                },
+                "boxes[].col": {
+                  "maximum": 6
+                },
+                "boxes[].row": {
+                  "maximum": 4
+                },
+                "links": {
+                  "maxItems": 16
+                },
+                "links[].label": {
+                  "maxLength": 20
+                },
+                "title": {
+                  "maxLength": 60
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Scatter": {
+      "version": 1,
+      "category": "chart",
+      "name": {
+        "zh-TW": "散點圖",
+        "en": "Scatter plot",
+        "ja": "散布図"
+      },
+      "summary": {
+        "zh-TW": "依群組逐一落下的散點，可框出特別的點",
+        "en": "Points that drop in group by group, with notable points circled",
+        "ja": "グループごとに点が落ち、特別な点を囲む散布図"
+      },
+      "aiGuide": {
+        "zh-TW": "points 每點 x、y 是數字，group 是群組名（最多 6 組），要特別標出的點才填 label（最多 12 個）。最多 80 點。",
+        "en": "Each point has numeric x and y and a group name (up to 6 groups); give a label only to points worth calling out (up to 12). At most 80 points.",
+        "ja": "各点は数値の x・y とグループ名（最大 6 グループ）。目立たせたい点だけ label を付ける（最大 12）。最大 80 点。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "散點",
+          "分布",
+          "群集",
+          "離群值"
+        ],
+        "en": [
+          "scatter",
+          "distribution",
+          "clusters",
+          "outliers"
+        ],
+        "ja": [
+          "散布図",
+          "分布",
+          "外れ値"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "xLabel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "yLabel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "points": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "group": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "group",
+                "label"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "xLabel",
+          "yLabel",
+          "points"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-scatter",
+              "adapter": "scatter",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步落下第 i 個群組的點；群組數之後的一步框出有標籤的點",
+                "en": "Step i drops the points of group i; the step after the last group circles the labelled points",
+                "ja": "i ステップ目で i 番目のグループの点を落とす。最後のグループの次のステップでラベル付きの点を囲む",
+                "max": 7
+              },
+              "limits": {
+                "points": {
+                  "maxItems": 80
+                },
+                "points[].group": {
+                  "maxLength": 20
+                },
+                "points[].label": {
+                  "maxLength": 20
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "xLabel": {
+                  "maxLength": 20
+                },
+                "yLabel": {
+                  "maxLength": 20
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Metaphor": {
+      "version": 1,
+      "category": "structure",
+      "name": {
+        "zh-TW": "動態隱喻",
+        "en": "Metaphor",
+        "ja": "たとえ図"
+      },
+      "summary": {
+        "zh-TW": "漏斗、天平或齒輪的動態比喻",
+        "en": "An animated funnel, balance scale or set of gears",
+        "ja": "じょうご・天秤・歯車の動くたとえ"
+      },
+      "aiGuide": {
+        "zh-TW": "kind 選 funnel（多個輸入濾成少數輸出）、scale（兩邊比重量）或 gears（幾件事連動）。funnel：inputs 最多 8 項、outputs 最多 3 項；scale：inputs 是左盤、outputs 是右盤，各最多 5 項，weight 是重量（省略當 1）；gears：inputs 最多 5 個齒輪，outputs 填 null。",
+        "en": "kind is funnel (many inputs filtered into a few outputs), scale (weigh two sides) or gears (things that drive each other). funnel: up to 8 inputs and 3 outputs; scale: inputs is the left pan and outputs the right pan, up to 5 each, with weight (default 1); gears: up to 5 gears in inputs and outputs set to null.",
+        "ja": "kind は funnel（多くの入力を少数の出力に絞る）、scale（左右の重さ比べ）、gears（連動する物事）。funnel：inputs 最大 8・outputs 最大 3。scale：inputs が左の皿、outputs が右の皿で各最大 5、weight は重さ（省略時 1）。gears：inputs に最大 5 個の歯車、outputs は null。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "漏斗",
+          "天平",
+          "齒輪",
+          "比喻",
+          "取捨",
+          "連動"
+        ],
+        "en": [
+          "funnel",
+          "scale",
+          "gears",
+          "metaphor",
+          "trade-off"
+        ],
+        "ja": [
+          "じょうご",
+          "天秤",
+          "歯車",
+          "たとえ"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "funnel",
+              "scale",
+              "gears"
+            ]
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "inputs": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "items": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "weight": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "weight"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "title",
+              "items"
+            ],
+            "additionalProperties": false
+          },
+          "outputs": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "title": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "items": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "weight": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "weight"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "title",
+              "items"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "kind",
+          "title",
+          "inputs",
+          "outputs"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-metaphor",
+              "adapter": "metaphor",
+              "when": null,
+              "steps": {
+                "zh-TW": "漏斗：第 1 步輸入落下、第 2 步輸出冒出；天平：第 1、2 步放上左右盤；齒輪：第 i 步加入第 i 個齒輪",
+                "en": "Funnel: step 1 drops the inputs, step 2 emits the outputs; scale: steps 1 and 2 load the left and right pans; gears: step i adds gear i",
+                "ja": "じょうご：1 ステップ目で入力が落ち、2 ステップ目で出力が出る。天秤：1・2 ステップ目で左右の皿に載せる。歯車：i ステップ目で i 番目の歯車を追加",
+                "max": 5
+              },
+              "limits": {
+                "inputs.items": {
+                  "maxItems": 8
+                },
+                "outputs.items": {
+                  "maxItems": 5
+                },
+                "*.title": {
+                  "maxLength": 20
+                },
+                "*.items[].label": {
+                  "maxLength": 20
+                },
+                "title": {
+                  "maxLength": 60
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Stamp": {
+      "version": 1,
+      "category": "social",
+      "name": {
+        "zh-TW": "印章",
+        "en": "Stamp",
+        "ja": "スタンプ"
+      },
+      "summary": {
+        "zh-TW": "蓋下「已驗證」「失敗」這類印章，可疊在其他圖解上",
+        "en": "Stamps a mark such as \"Verified\" or \"Failed\", optionally over another diagram",
+        "ja": "「確認済み」「失敗」などのスタンプを押す。他の図解に重ねられる"
+      },
+      "aiGuide": {
+        "zh-TW": "text 12 字內；style 用 pass（綠）、fail（紅）、warn（琥珀）、review（紫）。背景預設透明，適合疊在別的圖解上。",
+        "en": "text is at most 12 characters; style is pass (green), fail (red), warn (amber) or review (purple). The background is transparent by default, so it works on top of another diagram.",
+        "ja": "text は 12 文字以内。style は pass（緑）、fail（赤）、warn（琥珀）、review（紫）。背景は既定で透明なので他の図解に重ねられる。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "印章",
+          "通過",
+          "失敗",
+          "驗證",
+          "蓋章"
+        ],
+        "en": [
+          "stamp",
+          "approved",
+          "failed",
+          "verified"
+        ],
+        "ja": [
+          "スタンプ",
+          "合格",
+          "不合格",
+          "確認済み"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "style": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "warn",
+              "review"
+            ]
+          },
+          "subtext": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "text",
+          "style",
+          "subtext"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-stamp",
+              "adapter": "stamp",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 1 步蓋章",
+                "en": "Step 1 stamps the mark",
+                "ja": "1 ステップ目でスタンプを押す",
+                "max": 1
+              },
+              "limits": {
+                "text": {
+                  "maxLength": 12
+                },
+                "subtext": {
+                  "maxLength": 24
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "rotate": {
+                    "type": "number",
+                    "minimum": -45,
+                    "maximum": 45
+                  },
+                  "size": {
+                    "type": "number",
+                    "minimum": 0.5,
+                    "maximum": 2
+                  },
+                  "pos": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "y": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    },
+                    "required": [
+                      "x",
+                      "y"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "SocialPost": {
+      "version": 1,
+      "category": "social",
+      "name": {
+        "zh-TW": "社群貼文卡",
+        "en": "Social post",
+        "ja": "SNS 投稿カード"
+      },
+      "summary": {
+        "zh-TW": "通用外觀的社群貼文卡，會浮上來並按讚",
+        "en": "A generic-looking social post card that floats in and gets a like",
+        "ja": "汎用デザインの投稿カード。浮かび上がって「いいね」される"
+      },
+      "aiGuide": {
+        "zh-TW": "style 用 micro（短文貼文）或 forum（論壇貼文，要有 community 與 postTitle）。stats 寫成文字（可用 2.4K 這類縮寫）。不要寫任何真實平台的名稱或標誌，也不要冒用真實人物或帳號。",
+        "en": "style is micro (short post) or forum (needs community and postTitle). stats are text and may use abbreviations such as 2.4K. Never name or imitate a real platform, person or account.",
+        "ja": "style は micro（短文投稿）か forum（community と postTitle が必要）。stats は文字列（2.4K のような略記可）。実在のプラットフォーム名・ロゴや実在の人物・アカウントは使わない。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "社群",
+          "貼文",
+          "留言",
+          "按讚",
+          "口碑"
+        ],
+        "en": [
+          "social post",
+          "comment",
+          "like",
+          "testimonial"
+        ],
+        "ja": [
+          "投稿",
+          "SNS",
+          "いいね",
+          "口コミ"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "style": {
+            "type": "string",
+            "enum": [
+              "micro",
+              "forum"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "handle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "community": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "postTitle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "stats": {
+            "type": "object",
+            "properties": {
+              "replies": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reposts": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "likes": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "replies",
+              "reposts",
+              "likes"
+            ],
+            "additionalProperties": false
+          },
+          "time": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "style",
+          "name",
+          "handle",
+          "community",
+          "postTitle",
+          "text",
+          "stats",
+          "time"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-social-post",
+              "adapter": "social-post",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 1 步卡片浮上來、第 2 步按讚",
+                "en": "Step 1 floats the card in, step 2 likes it",
+                "ja": "1 ステップ目でカードが浮かび、2 ステップ目で「いいね」",
+                "max": 2
+              },
+              "limits": {
+                "name": {
+                  "maxLength": 30
+                },
+                "handle": {
+                  "maxLength": 30
+                },
+                "community": {
+                  "maxLength": 30
+                },
+                "postTitle": {
+                  "maxLength": 80
+                },
+                "text": {
+                  "maxLength": 280
+                },
+                "time": {
+                  "maxLength": 20
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "theme": {
+                    "type": "string",
+                    "enum": [
+                      "dark",
+                      "light"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Subscribe": {
+      "version": 1,
+      "category": "social",
+      "name": {
+        "zh-TW": "訂閱條",
+        "en": "Subscribe bar",
+        "ja": "登録バー"
+      },
+      "summary": {
+        "zh-TW": "畫面下方滑入、按下訂閱再滑出的頻道訂閱條",
+        "en": "A channel subscribe bar that slides in, gets clicked and slides out",
+        "ja": "画面下に現れ、登録ボタンが押されて消えるチャンネル登録バー"
+      },
+      "aiGuide": {
+        "zh-TW": "name 是頻道名稱，subscribers 是訂閱人數的文字。button／done 留 null 會用輸出語言的預設文字。",
+        "en": "name is the channel name and subscribers is the subscriber count as text. Leave button and done null to use default text in the output language.",
+        "ja": "name はチャンネル名、subscribers は登録者数の文字列。button／done を null にすると出力言語の既定文言になる。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "訂閱",
+          "頻道",
+          "追蹤",
+          "片尾"
+        ],
+        "en": [
+          "subscribe",
+          "channel",
+          "follow",
+          "outro"
+        ],
+        "ja": [
+          "チャンネル登録",
+          "登録",
+          "フォロー"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "subscribers": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "button": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "done": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "subscribers",
+          "button",
+          "done"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-subscribe",
+              "adapter": "subscribe",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 1 步滑入、第 2 步按下訂閱、第 3 步滑出",
+                "en": "Step 1 slides in, step 2 clicks subscribe, step 3 slides out",
+                "ja": "1 ステップ目で表示、2 ステップ目で登録を押し、3 ステップ目で退場",
+                "max": 3
+              },
+              "limits": {
+                "name": {
+                  "maxLength": 30
+                },
+                "subscribers": {
+                  "maxLength": 30
+                },
+                "button": {
+                  "maxLength": 10
+                },
+                "done": {
+                  "maxLength": 10
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "pos": {
+                    "type": "string",
+                    "enum": [
+                      "bottom-left",
+                      "bottom-center",
+                      "bottom-right"
+                    ]
+                  },
+                  "cursor": {
+                    "type": "boolean"
+                  },
+                  "bell": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Checklist": {
+      "version": 1,
+      "category": "sequence",
+      "name": {
+        "zh-TW": "清單打勾",
+        "en": "Checklist",
+        "ja": "チェックリスト"
+      },
+      "summary": {
+        "zh-TW": "逐項檢查並顯示結果的工作清單",
+        "en": "A task list where each item is checked and shows its result",
+        "ja": "項目ごとにチェックして結果を表示する作業リスト"
+      },
+      "aiGuide": {
+        "zh-TW": "items 一項一個檢查項目；status 用 ok、fail、warn、skip，或 10 字內的自訂狀態（例如「待產生」）。",
+        "en": "One check per item; status is ok, fail, warn, skip, or a custom label of up to 10 characters (e.g. \"pending\").",
+        "ja": "items は 1 項目 1 チェック。status は ok、fail、warn、skip、または 10 文字以内の独自ラベル（例：「生成待ち」）。"
+      },
+      "keywords": {
+        "zh-TW": [
+          "清單",
+          "檢查",
+          "打勾",
+          "待辦",
+          "進度"
+        ],
+        "en": [
+          "checklist",
+          "to-do",
+          "check",
+          "status"
+        ],
+        "ja": [
+          "チェックリスト",
+          "確認",
+          "やること"
+        ]
+      },
+      "props": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "items": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "status"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "renderers": {
+        "react": {
+          "status": "none",
+          "component": null
+        },
+        "canvas": {
+          "status": "full",
+          "variants": [
+            {
+              "template": "diagram-checklist",
+              "adapter": "checklist",
+              "when": null,
+              "steps": {
+                "zh-TW": "第 i 步出現第 i 項並轉圈後顯示結果",
+                "en": "Step i reveals item i, spins, then shows its result",
+                "ja": "i ステップ目で i 番目の項目が現れ、回転のあと結果を表示",
+                "max": 10
+              },
+              "limits": {
+                "items": {
+                  "maxItems": 10
+                },
+                "items[].label": {
+                  "maxLength": 60
+                },
+                "items[].status": {
+                  "maxLength": 10
+                },
+                "title": {
+                  "maxLength": 60
+                },
+                "loading": {
+                  "maxLength": 30
+                },
+                "done": {
+                  "maxLength": 30
+                }
+              },
+              "props": {
+                "type": "object",
+                "properties": {
+                  "loading": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "done": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "workTime": {
+                    "type": "number",
+                    "minimum": 0.2,
+                    "maximum": 3
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
